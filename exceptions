@@ -1,0 +1,142 @@
+7.father son age exception
+class WrongAgeException extends Exception {
+    public WrongAgeException(String message) {
+        super(message);
+    }
+}
+
+// Base Class Father
+class Father {
+    int fatherAge;
+
+    Father(int age) throws WrongAgeException {
+        if (age < 0) {
+            throw new WrongAgeException("Father's age cannot be negative!");
+        }
+        this.fatherAge = age;
+    }
+}
+
+// Derived Class Son
+class Son extends Father {
+    int sonAge;
+
+    Son(int fatherAge, int sonAge) throws WrongAgeException {
+        super(fatherAge); // calling Father constructor
+
+        if (sonAge >= fatherAge) {
+            throw new WrongAgeException("Son's age must be less than Father's age!");
+        }
+
+        this.sonAge = sonAge;
+    }
+}
+
+// Main Driver Class
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        try {
+            // Example 1: Correct input
+            Son s1 = new Son(40, 15);
+            System.out.println("Object created successfully!");
+            System.out.println("Father age: " + s1.fatherAge);
+            System.out.println("Son age: " + s1.sonAge);
+
+            // Example 2: Wrong input - son ≥ father
+            Son s2 = new Son(30, 35);
+
+        } catch (WrongAgeException e) {
+            System.out.println("Exception Caught: " + e.getMessage());
+        }
+
+        try {
+            // Example 3: Wrong input - father age < 0
+            Father f = new Father(-10);
+
+        } catch (WrongAgeException e) {
+            System.out.println("Exception Caught: " + e.getMessage());
+        }
+        finally{
+            System.out.println("Code Executed Successfully");
+        }
+    }
+}
+
+
+practice 1
+bank demo exception
+class LowBalanceException extends Exception {
+LowBalanceException(String msg) {
+super(msg);
+
+}
+}
+
+class Account {
+double balance;
+
+Account(double balance) throws LowBalanceException {
+if(balance<1000)
+throw new LowBalanceException("Minimum balance must be 1000");
+this.balance = balance;
+}
+}
+
+class SavingsAccount extends Account {
+SavingsAccount(double balance) throws LowBalanceException {
+super(balance);
+}
+}
+
+public class BankDemo {
+public static void main(String[] args) {
+try {
+SavingsAccount s = new SavingsAccount(500);
+} catch (LowBalanceException e) {
+System.out.println("Exception: " + e.getMessage());
+}
+}
+}
+
+
+practice 2 
+employee manager exception
+class WrongAgeException extends Exception {
+WrongAgeException(String msg) {
+super(msg);
+}
+}
+
+class Employee {
+int empAge;
+
+Employee(int age) throws WrongAgeException {
+if (age<18)
+throw new WrongAgeException("Employee must be at least 18 years ");
+this.empAge = age;
+}
+}
+
+class Manager extends Employee {
+int managerAge;
+
+Manager(int empAge, int managerAge) throws WrongAgeException {
+super(empAge);
+
+if (managerAge <= empAge)
+throw new WrongAgeException("Manager must be older than employee");
+
+this.managerAge = managerAge;
+}
+}
+
+public class CompanyDemo {
+public static void main(String[] args) {
+try {
+Manager m = new Manager(25, 30);
+System.out.println("Manager created successfully");
+} catch (WrongAgeException e) {
+System.out.println("Exception: " + e.getMessage());
+}
+}
+}
