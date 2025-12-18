@@ -1,0 +1,23 @@
+class Book {
+    String name, author;
+    double price;
+    int pages;
+
+    Book(String n, String a, double p, int pg) {
+        name = n;
+        author = a;
+        price = p;
+        pages = pg;
+    }
+
+    public String toString() {
+        return name + " " + author + " " + price + " " + pages;
+    }
+}
+
+public class BookMain {
+    public static void main(String[] args) {
+        Book b1 = new Book("Java", "James", 450, 500);
+        System.out.println(b1);
+    }
+}
